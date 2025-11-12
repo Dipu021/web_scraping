@@ -51,9 +51,5 @@ for i in range(1,2):
            """)
 
 
-    # title(response)
-    # price(response)
-    # check_avaiablity(response)
-
     print(f'page {i} complete')
     print(r.status_code)
