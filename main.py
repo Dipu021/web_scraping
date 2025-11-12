@@ -2,34 +2,35 @@ import requests
 from parsel import Selector
 
 def title(response):
-    for list in response.xpath('//li/article'):
-         title=list.xpath('.//h3/a/text()').get()
+    # for list in response.xpath('//li/article'):
+         title=response.xpath('.//h3/a/text()').get()
          return title
         
 
 def price(response):
-    for list in response.xpath('//li/article'):
-         price = list.xpath('.//p[@class="price_color"]/text()').get()
+    # for list in response.xpath('//li/article'):
+         price = response.xpath('.//p[@class="price_color"]/text()').get()
          return price
       
         
 
 def check_avaiablity(response):
-    for list in response.xpath('//li/article'):
-        raw = list.xpath('.//p[@class="instock availability"]/text()').getall()
+    # for list in response.xpath('//li/article'):
+        raw = response.xpath('.//p[@class="instock availability"]/text()').getall()
         clean =''.join(x.strip() for x in raw if x.strip())
         return clean
 
 
 def image_url(response):
-    for list in response.xpath('//li/article'):
-        url = list.xpath('.//a/@href').get()
-        return url
+    # for list in response.xpath('//li/article'):
+        url = response.xpath('.//img/@src').get()
+        complete_url = "https://books.toscrape.com/" + url
+        return complete_url
 
 
 def rating(response):
-    for list in response.xpath('//li/article'):
-        rate = list.xpath('.//p/@class').get().split(' ')[1]
+    # for list in response.xpath('//li/article'):
+        rate = response.xpath('.//p/@class').get().split(' ')[1]
         return rate
         
 
@@ -42,11 +43,11 @@ for i in range(1,2):
 
     for item in response.xpath('//li/article'):
      print(f""" 
-           Title:{title(response)}
-           Price:{price(response)}
-           Availabilty:{check_avaiablity(response)}
-           Rating:{rating(response)}
-           URL:{image_url(response)}
+           Title:{title(item)}
+           Price:{price(item)}
+           Availabilty:{check_avaiablity(item)}
+           Rating:{rating(item)}
+           URL:{image_url(item)}
            """)
 
 
