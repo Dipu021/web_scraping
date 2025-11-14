@@ -23,7 +23,7 @@ while True:
         text = quote.xpath('.//span[@class="text"]/text()').get()
         author = quote.xpath('.//span/small[@class="author"]/text()').get()
         unorder_tags = quote.xpath('.//div/a[@class="tag"]/text()').getall()
-        order_tags = unorder_tags.sort()
+        order_tags = sorted(unorder_tags)
         author_links = quote.xpath('.//span/a/@href').get()
         author_details = "https://quotes.toscrape.com/"+author_links
 
