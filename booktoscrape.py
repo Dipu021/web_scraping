@@ -1,6 +1,5 @@
 import requests
 from parsel import Selector
-import json
 
 def title(response):
     # for list in response.xpath('//li/article'):
@@ -35,26 +34,26 @@ def rating(response):
         return rate
         
 
-books_data = []
 
 
-for i in range(1,51):
+for i in range(1,2):
     r=requests.get(f'https://books.toscrape.com/catalogue/page-{i}.html')
 
     response=Selector(r.text)
 
     for item in response.xpath('//li/article'):
-     book = {
-           "Title":title(item),
-           "Price":price(item),
-           "Availabilty":check_avaiablity(item),
-           "Rating":rating(item),
-           "URL":image_url(item)
-     }
-     books_data.append(book)
+     print(f""" 
+           Title:{title(item)}
+           Price:{price(item)}
+           Availabilty:{check_avaiablity(item)}
+           Rating:{rating(item)}
+           URL:{image_url(item)}
+           """)
+
+
+    # title(response)
+    # price(response)
+    # check_avaiablity(response)
 
     print(f'page {i} complete')
     print(r.status_code)
-
-with open("books.json","w",encoding="utf-8") as f:
-       json.dump(books_data,f,indent=4,ensure_ascii=False)
