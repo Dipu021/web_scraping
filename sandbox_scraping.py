@@ -5,7 +5,7 @@ import json
 
 data = []
 
-for i in range(1,21):
+for i in range(1,95):
     url = f'https://sandbox.oxylabs.io/products?page={i}'
 
     r = requests.get(url)
